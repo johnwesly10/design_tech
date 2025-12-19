@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 // Components
@@ -23,18 +23,21 @@ import LumoraSecure from "./pages/LumoraSecure";
 import DigitalMarketing from "./pages/DigitalMarketing";
 import WebDevelopment from "./pages/WebDevelopment";
 import Portfolio from "./pages/Portfolio";
+import VaultenxCloud from "./components/vaultenx-cloud/VaultenxCloud";
 
 // News pages
 import UploadNews from "./pages/UploadNews";
 import ViewNews from "./pages/ViewNews";
-import AdminLogin from "./pages/AdminLogin"; // 👈 import admin login page
+import AdminLogin from "./pages/AdminLogin"; 
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/vaultenx-cloud';
+
   return (
-    <Router>
+    <>
+      {!hideHeader && <Header />}
       <ScrollToTop />
-      <Header />
-
       <Routes>
         {/* Home / Landing Page */}
         <Route
@@ -54,7 +57,15 @@ function App() {
           }
         />
 
-        {/* Service Detail Pages */}
+        {/* Vaultenx Cloud */}
+        <Route path="/vaultenx-cloud" element={<VaultenxCloud />} />
+
+        {/* Admin & News */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/upload-news" element={<UploadNews />} />
+        <Route path="/view-news" element={<ViewNews />} />
+
+        {/* Other service pages */}
         <Route path="/cloud" element={<LumoraCloud />} />
         <Route path="/ai" element={<LumoraAI />} />
         <Route path="/secure" element={<LumoraSecure />} />
@@ -62,18 +73,13 @@ function App() {
         <Route path="/web-development" element={<WebDevelopment />} />
         <Route path="/portfolio" element={<Portfolio />} />
 
-        {/* Admin & News */}
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/upload-news" element={<UploadNews />} />
-        <Route path="/view-news" element={<ViewNews />} />
-
         {/* 404 Page */}
         <Route
           path="*"
           element={
             <div className="section not-found">
               <h2>404 - Page Not Found</h2>
-              <p>The page you are looking for doesn’t exist.</p>
+              <p>The page you are looking for doesn't exist.</p>
               <a href="/" className="btn-primary">
                 Go Home
               </a>
@@ -81,8 +87,15 @@ function App() {
           }
         />
       </Routes>
-
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

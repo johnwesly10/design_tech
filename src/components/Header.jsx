@@ -183,6 +183,13 @@ const Header = () => {
                   <span className="w-2 h-2 rounded-full bg-green-500 group-hover:scale-125 transition-transform"></span>
                   Web Development
                 </Link>
+                <Link
+                  to="/vaultenx-cloud"
+                  className="group flex items-center gap-3 px-6 py-3 text-gray-700 font-medium hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600 transition-all duration-300"
+                >
+                  <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform"></span>
+                  Vaultenx Cloud
+                </Link>
               </div>
             )}
           </div>
